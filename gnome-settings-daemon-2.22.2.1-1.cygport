@@ -1,0 +1,7 @@
+inherit gnome2
+
+CYGCONF_ARGS="
+	--libexecdir=/usr/bin
+	--disable-esd
+	--enable-gstreamer=0.10
+"
