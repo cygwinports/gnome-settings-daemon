@@ -1,5 +1,9 @@
 inherit gnome2
 
+PATCH_URI="2.22-no-undefined.patch"
+
+DIFF_EXCLUDES="*.desktop.in"
+
 CYGCONF_ARGS="
 	--libexecdir=/usr/bin
 	--disable-esd

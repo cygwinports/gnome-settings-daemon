@@ -1,4 +1,4 @@
 category: GNOME
-requires: cygwin GConf2 gdk-pixbuf2 glib2 gstreamer010 gstreamer010-plugins-base gtk2-x11 libX11_6 libXi6 libXrandr2 libcairo2 libdbus-glib_1_2 libdbus1_3 libglade2 libgnome-desktop2 libgnome2 libgnomekbd libintl8 libxklavier12
+requires: cygwin GConf2 gstreamer010-plugins-base libcairo2 libdbus-glib_1_2 libdbus1_3 libfontconfig1 libgconf2_4 libgdk_pixbuf2.0_0 libglade2.0_0 libglib2.0_0 libgnome-desktop2_7 libgnome2_0 libgnomekbd3 libgstreamer0.10_0 libgtk2.0_0 libintl8 libnotify1 libX11_6 libXi6 libxklavier12
 sdesc: "GNOME settings daemon"
 ldesc: "GNOME settings daemon"
