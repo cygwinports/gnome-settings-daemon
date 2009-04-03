@@ -3,40 +3,38 @@ gnome-settings-daemon
 GNOME settings daemon
 
 Runtime requirements:
-  cygwin-1.5.25-15
-  gstreamer010-plugins-base-0.10.21-2
-  libcairo2-1.8.4-1
-  libdbus-glib_1_2-0.76-1
-  libdbus1_3-1.2.4-1
-  libfontconfig1-2.6.0-1
-  libgconf2_4-2.24.0-1
-  libgdk_pixbuf2.0_0-2.14.5-1
-  libglade2.0_0-2.6.3-2
-  libglib2.0_0-2.18.3-1
-  libgnome-desktop2_7-2.24.2-1
-  libgnome2_0-2.24.1-1
-  libgnomekbd3-2.24.0-1
-  libgstreamer0.10_0-0.10.21-2
-  libgtk2.0_0-2.14.5-1
-  libintl8-0.17-2
-  libnotify1-0.4.5-1
-  libX11_6-1.1.5-1
-  libXi6-1.1.3-2
-  libxklavier12-3.8-1
+  cygwin-1.7.0-44
+  libcairo2-1.8.6-10
+  libdbus-glib_1_2-0.80-10
+  libdbus1_3-1.2.12-10
+  libfontconfig1-2.6.0-10
+  libgcc1-4.3.2-2
+  libgconf2_4-2.26.0-1
+  libgdk_pixbuf2.0_0-2.16.0-1
+  libglade2.0_0-2.6.4-1
+  libglib2.0_0-2.20.0-1
+  libgnome-desktop2_11-2.26.0-1
+  libgnomekbd3-2.26.0-1
+  libgtk2.0_0-2.16.0-1
+  libintl8-0.17-10
+  libnotify1-0.4.5-10
+  libX11_6-1.2-10
+  libXi6-1.2.1-10
+  libxklavier12-3.9-1
 
 Build requirements:
 (besides corresponding -devel packages)
-  autoconf2.5-2.63-1
-  automake1.10-1.10.1-2
+  autoconf2.5-2.63-10
+  automake1.10-1.10.1-10
   binutils-20080624-2
-  cygport-0.4.3-1
-  gawk-3.1.6-1
-  gcc-core-3.4.4-3
-  gettext-devel-0.17-2
-  gnome-common-2.24.0-1
-  intltool-0.40.5-1
-  libtool-2.2.6a-1
-  make-3.81-1
+  cygport-0.9.6-1
+  gawk-3.1.6-2
+  gcc4-core-4.3.2-2
+  gettext-devel-0.17-10
+  gnome-common-2.26.0-1
+  intltool-0.40.6-1
+  libtool-2.2.7a-12
+  make-3.81-2
   pkg-config-0.23a-2
   sed-4.1.5-2
 
@@ -49,15 +47,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack gnome-settings-daemon-2.24.1-X-src.tar.bz2
+  unpack gnome-settings-daemon-2.26.0-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./gnome-settings-daemon-2.24.1-X.cygport all
+  cygport ./gnome-settings-daemon-2.26.0-X.cygport all
 
 This will create:
-  /usr/src/gnome-settings-daemon-2.24.1-X-src.tar.bz2
-  /usr/src/gnome-settings-daemon-2.24.1-X.tar.bz2
+  /usr/src/gnome-settings-daemon-2.26.0-X-src.tar.bz2
+  /usr/src/gnome-settings-daemon-2.26.0-X.tar.bz2
 
 -------------------------------------------
 
@@ -67,12 +65,14 @@ Files included in the binary package:
   /etc/gconf/schemas/apps_gnome_settings_daemon_screensaver.schemas
   /etc/gconf/schemas/apps_gnome_settings_daemon_xrandr.schemas
   /etc/gconf/schemas/desktop_gnome_font_rendering.schemas
+  /etc/gconf/schemas/desktop_gnome_keybindings.schemas
   /etc/gconf/schemas/gnome-settings-daemon.schemas
   /etc/postinstall/gnome-settings-daemon.sh
   /etc/preremove/gnome-settings-daemon.sh
   /etc/xdg/autostart/gnome-settings-daemon.desktop
-  /usr/bin/gnome-settings-daemon.exe
+  /usr/bin/cyggsd-plugins-0.dll
   /usr/include/gnome-settings-daemon-2.0/gnome-settings-daemon/gnome-settings-client.h
+  /usr/include/gnome-settings-daemon-2.0/gnome-settings-daemon/gnome-settings-plugin.h
   /usr/lib/gnome-settings-daemon-2.0/a11y-keyboard.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/background.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/clipboard.gnome-settings-plugin
@@ -84,7 +84,6 @@ Files included in the binary package:
   /usr/lib/gnome-settings-daemon-2.0/cyghousekeeping.dll
   /usr/lib/gnome-settings-daemon-2.0/cygkeybindings.dll
   /usr/lib/gnome-settings-daemon-2.0/cygkeyboard.dll
-  /usr/lib/gnome-settings-daemon-2.0/cygmedia-keys.dll
   /usr/lib/gnome-settings-daemon-2.0/cygmouse.dll
   /usr/lib/gnome-settings-daemon-2.0/cygscreensaver.dll
   /usr/lib/gnome-settings-daemon-2.0/cygsound.dll
@@ -94,6 +93,7 @@ Files included in the binary package:
   /usr/lib/gnome-settings-daemon-2.0/cygxsettings.dll
   /usr/lib/gnome-settings-daemon-2.0/dummy.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/font.gnome-settings-plugin
+  /usr/lib/gnome-settings-daemon-2.0/gnome-settings-daemon.exe
   /usr/lib/gnome-settings-daemon-2.0/housekeeping.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/keybindings.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/keyboard.gnome-settings-plugin
@@ -105,7 +105,6 @@ Files included in the binary package:
   /usr/lib/gnome-settings-daemon-2.0/libhousekeeping.la
   /usr/lib/gnome-settings-daemon-2.0/libkeybindings.la
   /usr/lib/gnome-settings-daemon-2.0/libkeyboard.la
-  /usr/lib/gnome-settings-daemon-2.0/libmedia-keys.la
   /usr/lib/gnome-settings-daemon-2.0/libmouse.la
   /usr/lib/gnome-settings-daemon-2.0/libscreensaver.la
   /usr/lib/gnome-settings-daemon-2.0/libsound.la
@@ -113,7 +112,6 @@ Files included in the binary package:
   /usr/lib/gnome-settings-daemon-2.0/libxrandr.la
   /usr/lib/gnome-settings-daemon-2.0/libxrdb.la
   /usr/lib/gnome-settings-daemon-2.0/libxsettings.la
-  /usr/lib/gnome-settings-daemon-2.0/media-keys.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/mouse.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/screensaver.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/sound.gnome-settings-plugin
@@ -121,14 +119,16 @@ Files included in the binary package:
   /usr/lib/gnome-settings-daemon-2.0/xrandr.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/xrdb.gnome-settings-plugin
   /usr/lib/gnome-settings-daemon-2.0/xsettings.gnome-settings-plugin
+  /usr/lib/libgsd-plugins.dll.a
+  /usr/lib/libgsd-plugins.la
   /usr/lib/pkgconfig/gnome-settings-daemon.pc
   /usr/share/dbus-1/services/org.gnome.SettingsDaemon.service
-  /usr/share/doc/gnome-settings-daemon-2.24.1/AUTHORS
-  /usr/share/doc/gnome-settings-daemon-2.24.1/COPYING
-  /usr/share/doc/gnome-settings-daemon-2.24.1/ChangeLog
-  /usr/share/doc/gnome-settings-daemon-2.24.1/INSTALL
-  /usr/share/doc/gnome-settings-daemon-2.24.1/MAINTAINERS
-  /usr/share/doc/gnome-settings-daemon-2.24.1/NEWS
+  /usr/share/doc/gnome-settings-daemon/AUTHORS
+  /usr/share/doc/gnome-settings-daemon/COPYING
+  /usr/share/doc/gnome-settings-daemon/ChangeLog
+  /usr/share/doc/gnome-settings-daemon/MAINTAINERS
+  /usr/share/doc/gnome-settings-daemon/NEWS
+  /usr/share/gnome-control-center/keybindings/50-accessibility.xml
   /usr/share/gnome-settings-daemon/acme-eject.png
   /usr/share/gnome-settings-daemon/acme.glade
   /usr/share/gnome-settings-daemon/gsd-a11y-preferences-dialog.glade
@@ -147,6 +147,8 @@ Files included in the binary package:
   /usr/share/locale/af/LC_MESSAGES/gnome-settings-daemon.mo
   /usr/share/locale/am/LC_MESSAGES/gnome-settings-daemon.mo
   /usr/share/locale/ar/LC_MESSAGES/gnome-settings-daemon.mo
+  /usr/share/locale/as/LC_MESSAGES/gnome-settings-daemon.mo
+  /usr/share/locale/ast/LC_MESSAGES/gnome-settings-daemon.mo
   /usr/share/locale/az/LC_MESSAGES/gnome-settings-daemon.mo
   /usr/share/locale/be/LC_MESSAGES/gnome-settings-daemon.mo
   /usr/share/locale/be@latin/LC_MESSAGES/gnome-settings-daemon.mo
@@ -231,11 +233,8 @@ Files included in the binary package:
 
 Port Notes:
 
------ version 2.24.1-1 -----
-Version bump for GNOME 2.24.
-
------ version 2.22.2.1-1 -----
-Separated from gnome-control-center for GNOME 2.22.
+----- version 2.26.0-1 -----
+Initial release of GNOME 2.26 for Cygwin 1.7.
 
 
 Cygwin port maintained by:

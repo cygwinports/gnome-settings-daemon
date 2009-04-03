@@ -1,0 +1,8 @@
+inherit gnome2
+
+PATCH_URI="2.26-libgsd-plugins.patch
+           2.26-media-keys-no-pulse.patch"
+
+DIFF_EXCLUDES="*.desktop.in"
+
+CYGCONF_ARGS="--libexecdir=/usr/lib/gnome-settings-daemon-2.0"
