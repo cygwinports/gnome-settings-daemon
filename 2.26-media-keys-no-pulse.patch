@@ -1,5 +1,5 @@
-* plugins/media-keys/Makefile.am: Only install the .g-s-plugin file if
-the plugin is actually installed.
+* plugins/media-keys/Makefile.am: Only install media-keys.gnome-settings-plugin
+file if the plugin is actually installed.
 
 --- origsrc/gnome-settings-daemon-2.26.0/plugins/media-keys/Makefile.am	2009-03-16 09:35:38.000000000 -0500
 +++ src/gnome-settings-daemon-2.26.0/plugins/media-keys/Makefile.am	2009-04-03 02:36:09.743750000 -0500
