@@ -1,7 +1,6 @@
 inherit gnome2
 
-PATCH_URI="2.26-libgsd-plugins.patch
-           2.26-media-keys-no-pulse.patch"
+PATCH_URI="2.28-libgsd-plugins.patch"
 
 DIFF_EXCLUDES="*.desktop.in"
 
