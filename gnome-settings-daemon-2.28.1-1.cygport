@@ -4,4 +4,4 @@ PATCH_URI="2.28-libgsd-plugins.patch"
 
 DIFF_EXCLUDES="*.desktop.in"
 
-CYGCONF_ARGS="--libexecdir=/usr/lib/gnome-settings-daemon-2.0"
+CYGCONF_ARGS="--libexecdir=/usr/bin"
