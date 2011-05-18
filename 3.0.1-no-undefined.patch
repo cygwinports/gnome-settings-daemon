@@ -1,0 +1,27 @@
+--- origsrc/gnome-settings-daemon-3.0.1/configure.ac	2011-04-26 04:39:47.000000000 -0500
++++ src/gnome-settings-daemon-3.0.1/configure.ac	2011-05-18 00:59:49.526059800 -0500
+@@ -78,6 +78,9 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
+ 
+ GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
+ case $host_os in
++  cygwin*)
++    GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -export-symbols \$(top_srcdir)/gnome-settings-daemon/gnome-settings-daemon.def"
++    ;;
+   darwin*)
+     GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -Wl,-bundle_loader,\$(top_builddir)/gnome-settings-daemon/gnome-settings-daemon"
+     ;;
+--- origsrc/gnome-settings-daemon-3.0.1/gnome-settings-daemon/Makefile.am	2010-11-17 10:04:00.000000000 -0600
++++ src/gnome-settings-daemon-3.0.1/gnome-settings-daemon/Makefile.am	2011-05-18 00:59:09.045744400 -0500
+@@ -66,6 +66,7 @@ gnome_settings_daemon_CFLAGS = 		\
+ 	$(AM_CFLAGS)
+ 
+ gnome_settings_daemon_LDFLAGS = 	\
++	-export-dynamic 		\
+ 	$(AM_LDFLAGS)
+ 
+ gnome_settings_daemon_LDADD = 		\
+--- origsrc/gnome-settings-daemon-3.0.1/gnome-settings-daemon/gnome-settings-daemon.def	1969-12-31 18:00:00.000000000 -0600
++++ src/gnome-settings-daemon-3.0.1/gnome-settings-daemon/gnome-settings-daemon.def	2011-05-18 00:55:08.810003700 -0500
+@@ -0,0 +1,2 @@
++IMPORTS
++gnome_settings_plugin_get_type = gnome-settings-daemon.exe.gnome_settings_plugin_get_type

@@ -1,0 +1,10 @@
+inherit gnome2
+
+PATCH_URI="
+	3.0.1-math.patch
+	3.0.1-no-undefined.patch
+"
+
+DIFF_EXCLUDES="*.desktop.in"
+
+CYGCONF_ARGS="--libexecdir=/usr/bin --disable-cups"

@@ -1,4 +1,4 @@
 category: GNOME
-requires: dbus GConf2 libcairo2 libdbus-glib_1_2 libdbus1_3 libfontconfig1 libgconf2_4 libglib2.0_0 libgnome-desktop2_17 libgnomekbd4 libgtk2.0_0 libintl8 libnotify1 libX11_6 libXi6 libxklavier16
+requires: dbus GConf2 libcairo2 libdbus-glib_1_2 libfontconfig1 libgconf2_4 libgdk_pixbuf2.0_0 libglib2.0_0 libgnome-desktop3_0 libgnomekbd7 libgtk3_0 libintl8 libnotify4 libnspr4 libnss3 libX11_6 libXi6 libxklavier16
 sdesc: "GNOME settings daemon"
 ldesc: "GNOME settings daemon"
