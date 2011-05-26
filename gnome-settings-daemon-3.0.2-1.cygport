@@ -8,3 +8,5 @@ PATCH_URI="
 DIFF_EXCLUDES="*.desktop.in"
 
 CYGCONF_ARGS="--libexecdir=/usr/bin --disable-cups"
+
+KEEPDIRS="/etc/gnome-settings-daemon/xrandr"
