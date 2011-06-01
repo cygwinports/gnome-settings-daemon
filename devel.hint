@@ -1,0 +1,5 @@
+category: GNOME
+requires: gnome-settings-daemon libdbus1-devel libdbus-glib_1-devel libglib2.0-devel
+external-source: gnome-settings-daemon
+sdesc: "GNOME settings daemon (plugin development)"
+ldesc: "GNOME settings daemon"

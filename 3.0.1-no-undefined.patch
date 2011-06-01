@@ -1,27 +1,32 @@
---- origsrc/gnome-settings-daemon-3.0.1/configure.ac	2011-04-26 04:39:47.000000000 -0500
-+++ src/gnome-settings-daemon-3.0.1/configure.ac	2011-05-18 00:59:49.526059800 -0500
+--- origsrc/gnome-settings-daemon-3.0.2/configure.ac	2011-05-31 21:27:11.796087800 -0500
++++ src/gnome-settings-daemon-3.0.2/configure.ac	2011-05-31 21:31:18.925222800 -0500
 @@ -78,6 +78,9 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
  
  GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
  case $host_os in
 +  cygwin*)
-+    GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -export-symbols \$(top_srcdir)/gnome-settings-daemon/gnome-settings-daemon.def"
++    GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -Wl,\$(top_builddir)/gnome-settings-daemon/libgsd-plugin-$GSD_API_VERSION.a"
 +    ;;
    darwin*)
      GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -Wl,-bundle_loader,\$(top_builddir)/gnome-settings-daemon/gnome-settings-daemon"
      ;;
---- origsrc/gnome-settings-daemon-3.0.1/gnome-settings-daemon/Makefile.am	2010-11-17 10:04:00.000000000 -0600
-+++ src/gnome-settings-daemon-3.0.1/gnome-settings-daemon/Makefile.am	2011-05-18 00:59:09.045744400 -0500
-@@ -66,6 +66,7 @@ gnome_settings_daemon_CFLAGS = 		\
+--- origsrc/gnome-settings-daemon-3.0.2/data/gnome-settings-daemon.pc.in	2011-05-09 02:35:19.000000000 -0500
++++ src/gnome-settings-daemon-3.0.2/data/gnome-settings-daemon.pc.in	2011-05-31 21:30:44.219237800 -0500
+@@ -10,5 +10,5 @@ Name: gnome-settings-daemon
+ Description: Utility library for accessing gnome-settings-daemon over DBUS
+ Requires: glib-2.0 dbus-1 dbus-glib-1
+ Version: @VERSION@
+-Libs: -L${libdir}
++Libs: -L${libdir} -lgsd-plugin-@GSD_API_VERSION@
+ Cflags: -I${includedir}/gnome-settings-daemon-@GSD_API_VERSION@
+--- origsrc/gnome-settings-daemon-3.0.2/gnome-settings-daemon/Makefile.am	2011-05-31 21:27:11.801088100 -0500
++++ src/gnome-settings-daemon-3.0.2/gnome-settings-daemon/Makefile.am	2011-05-31 21:54:03.444878100 -0500
+@@ -66,6 +66,8 @@ gnome_settings_daemon_CFLAGS = 		\
  	$(AM_CFLAGS)
  
  gnome_settings_daemon_LDFLAGS = 	\
-+	-export-dynamic 		\
++	-export-dynamic			\
++	-Wl,--out-implib,libgsd-plugin-$(GSD_API_VERSION).a	\
  	$(AM_LDFLAGS)
  
  gnome_settings_daemon_LDADD = 		\
---- origsrc/gnome-settings-daemon-3.0.1/gnome-settings-daemon/gnome-settings-daemon.def	1969-12-31 18:00:00.000000000 -0600
-+++ src/gnome-settings-daemon-3.0.1/gnome-settings-daemon/gnome-settings-daemon.def	2011-05-18 00:55:08.810003700 -0500
-@@ -0,0 +1,2 @@
-+IMPORTS
-+gnome_settings_plugin_get_type = gnome-settings-daemon.exe.gnome_settings_plugin_get_type

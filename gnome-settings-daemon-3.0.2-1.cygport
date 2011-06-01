@@ -5,8 +5,20 @@ PATCH_URI="
 	3.0.1-no-undefined.patch
 "
 
+PKG_NAMES="${PN} ${PN}-devel"
+PKG_HINTS="setup devel"
+gnome_settings_daemon_CONTENTS="etc/ usr/bin/ usr/lib/${PN}*/ usr/share/"
+gnome_settings_daemon_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
+
 DIFF_EXCLUDES="*.desktop.in"
 
 CYGCONF_ARGS="--libexecdir=/usr/bin --disable-cups"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	dolib ${PN}/libgsd-plugin*.a
+}
 
 KEEPDIRS="/etc/gnome-settings-daemon/xrandr"
