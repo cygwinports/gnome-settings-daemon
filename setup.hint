@@ -1,4 +1,4 @@
 category: GNOME
-requires: dbus font-cantarell-ttf GConf2 gnome-themes-standard libcairo2 libdbus-glib_1_2 libfontconfig1 libgconf2_4 libgdk_pixbuf2.0_0 libglib2.0_0 libgnome-desktop3_0 libgnomekbd7 libgtk3_0 libintl8 libnotify4 libnspr4 libnss3 libX11_6 libXi6 libxklavier16
+requires: dbus font-cantarell-otf GConf2 gnome-desktop gnome-themes-standard libcairo2 libcanberra0 libcanberra-gtk3_0 libcolord1 libfontconfig1 libgcc1 libgconf2_4 libgdk_pixbuf2.0_0 libglib2.0_0 libgnome-desktop3_2 libgnomekbd7 libgtk3_0 libintl8 liblcms2_2 libnotify4 libnspr4 libnss3 libX11_6 libXfixes3 libXi6 libxklavier16
 sdesc: "GNOME settings daemon"
 ldesc: "GNOME settings daemon"

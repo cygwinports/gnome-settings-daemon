@@ -1,13 +1,5 @@
 --- origsrc/gnome-settings-daemon-3.0.1/plugins/media-keys/gsd-media-keys-manager.c	2011-04-26 04:13:41.000000000 -0500
 +++ src/gnome-settings-daemon-3.0.1/plugins/media-keys/gsd-media-keys-manager.c	2011-05-18 01:24:30.979794100 -0500
-@@ -28,6 +28,7 @@
- #include <unistd.h>
- #include <string.h>
- #include <errno.h>
-+#include <math.h>
- 
- #include <locale.h>
- 
 @@ -1132,7 +1133,7 @@ do_magnifier_zoom_action (GsdMediaKeysMa
  	settings = g_settings_new ("org.gnome.desktop.a11y.magnifier");
  	value = g_settings_get_double (settings, "mag-factor");

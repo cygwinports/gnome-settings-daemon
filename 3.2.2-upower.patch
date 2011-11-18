@@ -1,0 +1,63 @@
+--- origsrc/gnome-settings-daemon-3.2.2/configure.ac	2011-11-17 17:08:25.493357400 -0600
++++ src/gnome-settings-daemon-3.2.2/configure.ac	2011-11-17 20:20:50.293682200 -0600
+@@ -370,7 +370,28 @@ dnl ====================================
+ # ---------------------------------------------------------------------------
+ # UPower
+ # ---------------------------------------------------------------------------
+-PKG_CHECK_MODULES(UPOWER, upower-glib >= 0.9.1)
++have_upower=false
++AC_ARG_ENABLE(upower,
++  AC_HELP_STRING([--disable-upower],
++                 [turn off UPower support]),
++       [case "${enableval}" in
++               yes) WANT_UPOWER=yes ;;
++               no)  WANT_UPOWER=no ;;
++               *) AC_MSG_ERROR(bad value ${enableval} for --disable-upower) ;;
++       esac],
++       [WANT_UPOWER=yes]) dnl Default value
++
++if test x$WANT_UPOWER = xyes ; then
++       PKG_CHECK_MODULES(UPOWER, upower-glib >= UPOWER_GLIB_REQUIRED_VERSION,
++             [have_upower=true
++              AC_DEFINE(HAVE_UPOWER, 1, [Define if UPower should be used])],
++             [have_upower=false])
++fi
++AM_CONDITIONAL(HAVE_UPOWER, test "x$have_upower" = "xtrue")
++
++AC_SUBST(UPOWER_CFLAGS)
++AC_SUBST(UPOWER_LIBS)
++
+ 
+ # ---------------------------------------------------------------------------
+ # PolicyKit
+@@ -610,6 +631,7 @@ echo "
+         PulseAudio support:       ${have_pulse}
+         PackageKit support:       ${have_packagekit}
+         Smartcard support:        ${have_smartcard_support}
++        UPower support:           ${have_upower}
+         GConf bridge support:     ${build_gconf_bridge}
+         Cups support:             ${have_cups}
+ ${NSS_DATABASE:+\
+--- origsrc/gnome-settings-daemon-3.2.2/plugins/Makefile.am	2011-11-08 07:48:52.000000000 -0600
++++ src/gnome-settings-daemon-3.2.2/plugins/Makefile.am	2011-11-17 20:14:31.694027600 -0600
+@@ -10,7 +10,6 @@ enabled_plugins =	\
+ 	cursor		\
+ 	datetime	\
+ 	dummy		\
+-	power		\
+ 	housekeeping    \
+ 	keybindings	\
+ 	keyboard	\
+@@ -48,6 +47,12 @@ else
+ disabled_plugins += orientation
+ endif
+ 
++if HAVE_UPOWER
++enabled_plugins += power
++else
++disabled_plugins += power
++endif
++
+ if BUILD_PRINT_NOTIFICATIONS
+ enabled_plugins += print-notifications
+ else

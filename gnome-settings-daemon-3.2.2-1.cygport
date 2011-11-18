@@ -3,6 +3,7 @@ inherit gnome2
 PATCH_URI="
 	3.0.1-math.patch
 	3.0.1-no-undefined.patch
+	3.2.2-upower.patch
 "
 
 PKG_NAMES="${PN} ${PN}-devel"
@@ -12,7 +13,14 @@ gnome_settings_daemon_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfi
 
 DIFF_EXCLUDES="*.desktop.in"
 
-CYGCONF_ARGS="--libexecdir=/usr/bin --disable-cups"
+CYGCONF_ARGS="
+	--libexecdir=/usr/bin
+	--disable-cups
+	--disable-gudev
+	--disable-packagekit
+	--disable-upower
+	--with-pnpids=/usr/share/libgnome-desktop-3.0/pnp.ids
+"
 
 src_install() {
 	cd ${B}
