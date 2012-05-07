@@ -1,0 +1,41 @@
+--- origsrc/gnome-settings-daemon-3.4.1/configure.ac	2012-05-06 23:58:01.947829400 -0500
++++ src/gnome-settings-daemon-3.4.1/configure.ac	2012-05-06 22:46:53.421683700 -0500
+@@ -74,6 +74,9 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
+ 
+ GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
+ case $host_os in
++  cygwin*)
++    GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} \$(top_builddir)/gnome-settings-daemon/libgsd.la"
++    ;;
+   darwin*)
+     GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -Wl,-bundle_loader,\$(top_builddir)/gnome-settings-daemon/gnome-settings-daemon"
+     ;;
+--- origsrc/gnome-settings-daemon-3.4.1/data/gnome-settings-daemon.pc.in	2012-05-06 23:58:01.950829600 -0500
++++ src/gnome-settings-daemon-3.4.1/data/gnome-settings-daemon.pc.in	2012-05-06 23:58:32.991605000 -0500
+@@ -10,5 +10,5 @@ Name: gnome-settings-daemon
+ Description: Utility library for accessing gnome-settings-daemon over DBUS
+ Requires: glib-2.0
+ Version: @VERSION@
+-Libs: -L${libdir}
++Libs: -L${plugindir} -lgsd
+ Cflags: -I${includedir}/gnome-settings-daemon-@GSD_API_VERSION@
+--- origsrc/gnome-settings-daemon-3.4.1/gnome-settings-daemon/Makefile.am	2012-05-06 23:58:01.953829700 -0500
++++ src/gnome-settings-daemon-3.4.1/gnome-settings-daemon/Makefile.am	2012-05-06 23:57:22.843592700 -0500
+@@ -21,6 +21,8 @@ privlib_LTLIBRARIES =		\
+ 	$(NULL)
+ 
+ libgsd_la_SOURCES =		\
++	gnome-settings-plugin.c		\
++	gnome-settings-plugin.h		\
+ 	gnome-settings-profile.c	\
+ 	gnome-settings-profile.h	\
+ 	gnome-settings-session.c	\
+@@ -58,8 +60,6 @@ gnome_settings_daemon_SOURCES =		\
+ 	main.c				\
+ 	gnome-settings-manager.c	\
+ 	gnome-settings-manager.h	\
+-	gnome-settings-plugin.c		\
+-	gnome-settings-plugin.h		\
+ 	gnome-settings-plugin-info.c	\
+ 	gnome-settings-plugin-info.h	\
+ 	gnome-settings-module.c		\
