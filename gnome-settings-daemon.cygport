@@ -1,14 +1,21 @@
 inherit gnome2
 
+NAME="gnome-settings-daemon"
+VERSION=3.6.3
+RELEASE=1
+CATEGORY="GNOME"
+SUMMARY="GNOME settings daemon"
+DESCRIPTION="GNOME settings daemon"
+REQUIRES="font-cantarell-otf gnome-backgrounds gnome-desktop gnome-icon-theme gnome-themes-standard"
+
 PATCH_URI="
 	3.0.1-math.patch
 	3.4.1-no-undefined.patch
 	3.2.2-upower.patch
-	3.4.1-wacom.patch
+	3.6.3-colord.patch
 "
 
 PKG_NAMES="${PN} ${PN}-devel"
-PKG_HINTS="setup devel"
 gnome_settings_daemon_CONTENTS="--exclude=libgsd.dll.a etc/ usr/bin/ usr/lib/${PN}*/ usr/share/"
 gnome_settings_daemon_devel_CONTENTS="usr/include/ usr/lib/${PN}*/libgsd.dll.a usr/lib/pkgconfig/"
 
@@ -19,10 +26,6 @@ CYGCONF_ARGS="
 	--disable-cups
 	--disable-gudev
 	--disable-packagekit
-	--disable-upower
-	--disable-wacom
 "
 
 KEEPDIRS="/etc/gnome-settings-daemon/xrandr"
-
-KEEP_LA_FILES="none"

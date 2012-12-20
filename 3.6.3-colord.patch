@@ -1,0 +1,33 @@
+--- origsrc/gnome-settings-daemon-3.6.3/configure.ac	2012-12-19 16:55:41.314691200 -0600
++++ src/gnome-settings-daemon-3.6.3/configure.ac	2012-12-19 17:08:10.622549200 -0600
+@@ -241,12 +239,6 @@ if test x$have_gudev != xno; then
+ fi
+ 
+ dnl ---------------------------------------------------------------------------
+-dnl - color
+-dnl ---------------------------------------------------------------------------
+-
+-PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
+-
+-dnl ---------------------------------------------------------------------------
+ dnl - wacom (disabled for s390/s390x and non Linux platforms)
+ dnl ---------------------------------------------------------------------------
+ 
+@@ -507,7 +499,6 @@ plugins/a11y-settings/Makefile
+ plugins/automount/Makefile
+ plugins/background/Makefile
+ plugins/clipboard/Makefile
+-plugins/color/Makefile
+ plugins/common/Makefile
+ plugins/cursor/Makefile
+ plugins/dummy/Makefile
+--- origsrc/gnome-settings-daemon-3.6.3/plugins/Makefile.am	2012-12-19 16:55:43.013788400 -0600
++++ src/gnome-settings-daemon-3.6.3/plugins/Makefile.am	2012-12-19 17:09:52.739390000 -0600
+@@ -6,7 +6,6 @@ enabled_plugins =	\
+ 	automount	\
+ 	background	\
+ 	clipboard	\
+-	color		\
+ 	cursor		\
+ 	dummy		\
+ 	housekeeping    \

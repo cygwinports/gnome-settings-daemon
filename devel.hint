@@ -1,5 +1,0 @@
-category: GNOME
-requires: gnome-settings-daemon libglib2.0-devel
-external-source: gnome-settings-daemon
-sdesc: "GNOME settings daemon (plugin development)"
-ldesc: "GNOME settings daemon"
