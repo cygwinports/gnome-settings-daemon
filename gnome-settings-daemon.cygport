@@ -1,7 +1,7 @@
 inherit gnome2
 
 NAME="gnome-settings-daemon"
-VERSION=3.6.4
+VERSION=3.8.4
 RELEASE=1
 CATEGORY="GNOME"
 SUMMARY="GNOME settings daemon"
@@ -15,14 +15,14 @@ PATCH_URI="
 	3.6.3-colord.patch
 "
 
-PKG_NAMES="${PN} ${PN}-devel"
-gnome_settings_daemon_CONTENTS="--exclude=libgsd.dll.a etc/ usr/bin/ usr/lib/${PN}*/ usr/share/"
-gnome_settings_daemon_devel_CONTENTS="usr/include/ usr/lib/${PN}*/libgsd.dll.a usr/lib/pkgconfig/"
+PKG_NAMES="${NAME} ${NAME}-devel"
+gnome_settings_daemon_CONTENTS="--exclude=libgsd.dll.a etc/ usr/bin/
+	usr/lib/${NAME}*/ usr/libexec/ usr/share/"
+gnome_settings_daemon_devel_CONTENTS="usr/include/ usr/lib/${NAME}*/libgsd.dll.a usr/lib/pkgconfig/"
 
 DIFF_EXCLUDES="*.desktop.in"
 
 CYGCONF_ARGS="
-	--libexecdir=/usr/bin
 	--disable-cups
 	--disable-gudev
 	--disable-packagekit
