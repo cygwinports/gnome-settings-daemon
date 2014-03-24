@@ -1,6 +1,6 @@
---- origsrc/gnome-settings-daemon-3.4.1/configure.ac	2012-05-06 23:58:01.947829400 -0500
-+++ src/gnome-settings-daemon-3.4.1/configure.ac	2012-05-06 22:46:53.421683700 -0500
-@@ -74,6 +74,9 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
+--- origsrc/gnome-settings-daemon-3.10.2/configure.ac	2013-11-12 13:02:04.000000000 -0600
++++ src/gnome-settings-daemon-3.10.2/configure.ac	2014-03-20 18:57:39.418690000 -0500
+@@ -81,6 +81,9 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
  
  GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
  case $host_os in
@@ -10,8 +10,8 @@
    darwin*)
      GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -Wl,-bundle_loader,\$(top_builddir)/gnome-settings-daemon/gnome-settings-daemon"
      ;;
---- origsrc/gnome-settings-daemon-3.4.1/data/gnome-settings-daemon.pc.in	2012-05-06 23:58:01.950829600 -0500
-+++ src/gnome-settings-daemon-3.4.1/data/gnome-settings-daemon.pc.in	2012-05-06 23:58:32.991605000 -0500
+--- origsrc/gnome-settings-daemon-3.10.2/data/gnome-settings-daemon.pc.in	2012-04-07 08:21:20.000000000 -0500
++++ src/gnome-settings-daemon-3.10.2/data/gnome-settings-daemon.pc.in	2014-03-20 18:57:39.439691200 -0500
 @@ -10,5 +10,5 @@ Name: gnome-settings-daemon
  Description: Utility library for accessing gnome-settings-daemon over DBUS
  Requires: glib-2.0
@@ -19,18 +19,18 @@
 -Libs: -L${libdir}
 +Libs: -L${plugindir} -lgsd
  Cflags: -I${includedir}/gnome-settings-daemon-@GSD_API_VERSION@
---- origsrc/gnome-settings-daemon-3.4.1/gnome-settings-daemon/Makefile.am	2012-05-06 23:58:01.953829700 -0500
-+++ src/gnome-settings-daemon-3.4.1/gnome-settings-daemon/Makefile.am	2012-05-06 23:57:22.843592700 -0500
-@@ -21,6 +21,8 @@ privlib_LTLIBRARIES =		\
- 	$(NULL)
- 
+--- origsrc/gnome-settings-daemon-3.10.2/gnome-settings-daemon/Makefile.am	2013-11-11 11:25:13.000000000 -0600
++++ src/gnome-settings-daemon-3.10.2/gnome-settings-daemon/Makefile.am	2014-03-20 18:57:39.445691500 -0500
+@@ -47,6 +47,8 @@ $(screen_saver_dbus_built_sources) : Mak
  libgsd_la_SOURCES =		\
+ 	$(session_manager_dbus_built_sources) \
+ 	$(screen_saver_dbus_built_sources) \
 +	gnome-settings-plugin.c		\
 +	gnome-settings-plugin.h		\
  	gnome-settings-profile.c	\
  	gnome-settings-profile.h	\
- 	gnome-settings-session.c	\
-@@ -58,8 +60,6 @@ gnome_settings_daemon_SOURCES =		\
+ 	gnome-settings-bus.c	\
+@@ -97,8 +99,6 @@ gnome_settings_daemon_SOURCES =		\
  	main.c				\
  	gnome-settings-manager.c	\
  	gnome-settings-manager.h	\
