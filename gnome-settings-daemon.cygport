@@ -2,7 +2,7 @@ inherit gnome2
 
 NAME="gnome-settings-daemon"
 VERSION=3.10.3
-RELEASE=1
+RELEASE=2
 CATEGORY="GNOME"
 SUMMARY="GNOME settings daemon"
 DESCRIPTION="GNOME settings daemon"
@@ -11,8 +11,8 @@ REQUIRES="font-cantarell-otf gnome-backgrounds gnome-desktop gnome-icon-theme gn
 PATCH_URI="
 	3.0.1-math.patch
 	3.10.2-no-undefined.patch
-	3.10.2-polkit.patch
 	3.10.2-colord.patch
+	3.10.3-polkit.patch
 "
 
 PKG_NAMES="${NAME} ${NAME}-devel"

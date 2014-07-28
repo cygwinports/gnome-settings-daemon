@@ -1,0 +1,69 @@
+--- origsrc/gnome-settings-daemon-3.10.3/configure.ac	2014-07-24 01:36:37.240202500 -0500
++++ src/gnome-settings-daemon-3.10.3/configure.ac	2014-07-24 01:37:33.465842200 -0500
+@@ -55,7 +55,6 @@ PA_REQUIRED_VERSION=2.0
+ LIBWACOM_REQUIRED_VERSION=0.7
+ LIBRSVG_REQUIRED_VERSION=2.36.2
+ PANGO_REQUIRED_VERSION=1.20.0
+-POLKIT_REQUIRED_VERSION=0.103
+ UPOWER_REQUIRED_VERSION=0.9.11
+ IBUS_REQUIRED_VERSION=1.4.99
+ GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.9.91
+@@ -254,7 +253,6 @@ AC_SUBST(LIBM)
+ PKG_CHECK_MODULES(DATETIME,
+ 	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+ 	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+ )
+ 
+ GEOCLUE_DBUS_INTERFACE_XML=`pkg-config --variable=dbus_interface geoclue-2.0`
+--- origsrc/gnome-settings-daemon-3.10.3/plugins/datetime/gsd-timezone-monitor.c	2014-06-03 07:46:48.000000000 -0500
++++ src/gnome-settings-daemon-3.10.3/plugins/datetime/gsd-timezone-monitor.c	2014-07-24 01:38:51.770785700 -0500
+@@ -28,9 +28,6 @@
+ #include "weather-tz.h"
+ 
+ #include <geocode-glib/geocode-glib.h>
+-#include <polkit/polkit.h>
+-
+-#define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
+ 
+ enum {
+         TIMEZONE_CHANGED,
+@@ -42,7 +39,6 @@ static int signals[LAST_SIGNAL] = { 0 };
+ typedef struct
+ {
+         GCancellable *cancellable;
+-        GPermission *permission;
+         GeoclueClient *geoclue_client;
+         GeoclueManager *geoclue_manager;
+         Timedate1 *dtm;
+@@ -438,7 +434,6 @@ gsd_timezone_monitor_finalize (GObject *
+         g_clear_object (&priv->dtm);
+         g_clear_object (&priv->geoclue_client);
+         g_clear_object (&priv->geoclue_manager);
+-        g_clear_object (&priv->permission);
+         g_clear_pointer (&priv->current_timezone, g_free);
+         g_clear_pointer (&priv->tzdb, tz_db_free);
+         g_clear_pointer (&priv->weather_tzdb, weather_tz_db_free);
+@@ -471,22 +466,6 @@ gsd_timezone_monitor_init (GsdTimezoneMo
+ 
+         g_debug ("Starting timezone monitor");
+ 
+-        priv->permission = polkit_permission_new_sync (SET_TIMEZONE_PERMISSION,
+-                                                       NULL, NULL,
+-                                                       &error);
+-        if (priv->permission == NULL) {
+-                g_warning ("Could not get '%s' permission: %s",
+-                           SET_TIMEZONE_PERMISSION,
+-                           error->message);
+-                g_error_free (error);
+-                return;
+-        }
+-
+-        if (!g_permission_get_allowed (priv->permission)) {
+-                g_debug ("No permission to set timezone");
+-                return;
+-        }
+-
+         priv->cancellable = g_cancellable_new ();
+         priv->dtm = timedate1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                                       G_DBUS_PROXY_FLAGS_NONE,
