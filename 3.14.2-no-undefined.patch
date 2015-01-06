@@ -1,5 +1,5 @@
---- origsrc/gnome-settings-daemon-3.10.2/configure.ac	2013-11-12 13:02:04.000000000 -0600
-+++ src/gnome-settings-daemon-3.10.2/configure.ac	2014-03-20 18:57:39.418690000 -0500
+--- origsrc/gnome-settings-daemon-3.14.2/configure.ac	2015-01-06 02:16:31.942968000 -0600
++++ src/gnome-settings-daemon-3.14.2/configure.ac	2015-01-06 02:18:04.532225400 -0600
 @@ -81,6 +81,9 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
  
  GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
@@ -10,8 +10,8 @@
    darwin*)
      GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -Wl,-bundle_loader,\$(top_builddir)/gnome-settings-daemon/gnome-settings-daemon"
      ;;
---- origsrc/gnome-settings-daemon-3.10.2/data/gnome-settings-daemon.pc.in	2012-04-07 08:21:20.000000000 -0500
-+++ src/gnome-settings-daemon-3.10.2/data/gnome-settings-daemon.pc.in	2014-03-20 18:57:39.439691200 -0500
+--- origsrc/gnome-settings-daemon-3.14.2/data/gnome-settings-daemon.pc.in	2012-04-07 08:21:20.000000000 -0500
++++ src/gnome-settings-daemon-3.14.2/data/gnome-settings-daemon.pc.in	2015-01-06 02:18:04.535725800 -0600
 @@ -10,5 +10,5 @@ Name: gnome-settings-daemon
  Description: Utility library for accessing gnome-settings-daemon over DBUS
  Requires: glib-2.0
@@ -19,18 +19,18 @@
 -Libs: -L${libdir}
 +Libs: -L${plugindir} -lgsd
  Cflags: -I${includedir}/gnome-settings-daemon-@GSD_API_VERSION@
---- origsrc/gnome-settings-daemon-3.10.2/gnome-settings-daemon/Makefile.am	2013-11-11 11:25:13.000000000 -0600
-+++ src/gnome-settings-daemon-3.10.2/gnome-settings-daemon/Makefile.am	2014-03-20 18:57:39.445691500 -0500
-@@ -47,6 +47,8 @@ $(screen_saver_dbus_built_sources) : Mak
- libgsd_la_SOURCES =		\
+--- origsrc/gnome-settings-daemon-3.14.2/gnome-settings-daemon/Makefile.am	2014-10-10 11:25:24.000000000 -0500
++++ src/gnome-settings-daemon-3.14.2/gnome-settings-daemon/Makefile.am	2015-01-06 02:17:28.361132200 -0600
+@@ -62,6 +62,8 @@ libgsd_la_SOURCES =		\
  	$(session_manager_dbus_built_sources) \
  	$(screen_saver_dbus_built_sources) \
+ 	$(shell_dbus_built_sources)	\
 +	gnome-settings-plugin.c		\
 +	gnome-settings-plugin.h		\
  	gnome-settings-profile.c	\
  	gnome-settings-profile.h	\
  	gnome-settings-bus.c	\
-@@ -97,8 +99,6 @@ gnome_settings_daemon_SOURCES =		\
+@@ -114,8 +116,6 @@ gnome_settings_daemon_SOURCES =		\
  	main.c				\
  	gnome-settings-manager.c	\
  	gnome-settings-manager.h	\

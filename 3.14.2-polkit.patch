@@ -1,34 +1,32 @@
---- origsrc/gnome-settings-daemon-3.10.3/configure.ac	2014-07-24 01:36:37.240202500 -0500
-+++ src/gnome-settings-daemon-3.10.3/configure.ac	2014-07-24 01:37:33.465842200 -0500
-@@ -55,7 +55,6 @@ PA_REQUIRED_VERSION=2.0
+--- origsrc/gnome-settings-daemon-3.14.2/configure.ac	2015-01-06 02:18:43.603186800 -0600
++++ src/gnome-settings-daemon-3.14.2/configure.ac	2015-01-06 02:19:14.551616700 -0600
+@@ -54,7 +54,6 @@ PA_REQUIRED_VERSION=2.0
  LIBWACOM_REQUIRED_VERSION=0.7
  LIBRSVG_REQUIRED_VERSION=2.36.2
  PANGO_REQUIRED_VERSION=1.20.0
 -POLKIT_REQUIRED_VERSION=0.103
- UPOWER_REQUIRED_VERSION=0.9.11
- IBUS_REQUIRED_VERSION=1.4.99
+ UPOWER_REQUIRED_VERSION=0.99.0
  GSETTINGS_DESKTOP_SCHEMAS_REQUIRED_VERSION=3.9.91
-@@ -254,7 +253,6 @@ AC_SUBST(LIBM)
- PKG_CHECK_MODULES(DATETIME,
+ GEOCODE_GLIB_REQUIRED_VERSION=3.10.0
+@@ -252,7 +251,6 @@ PKG_CHECK_MODULES(DATETIME,
+         geoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
  	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
  	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
 -	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
  )
  
  GEOCLUE_DBUS_INTERFACE_XML=`pkg-config --variable=dbus_interface geoclue-2.0`
---- origsrc/gnome-settings-daemon-3.10.3/plugins/datetime/gsd-timezone-monitor.c	2014-06-03 07:46:48.000000000 -0500
-+++ src/gnome-settings-daemon-3.10.3/plugins/datetime/gsd-timezone-monitor.c	2014-07-24 01:38:51.770785700 -0500
-@@ -28,9 +28,6 @@
+--- origsrc/gnome-settings-daemon-3.14.2/plugins/datetime/gsd-timezone-monitor.c	2014-06-03 10:07:24.000000000 -0500
++++ src/gnome-settings-daemon-3.14.2/plugins/datetime/gsd-timezone-monitor.c	2015-01-06 02:27:07.359655700 -0600
+@@ -27,7 +27,6 @@
  #include "weather-tz.h"
  
  #include <geocode-glib/geocode-glib.h>
 -#include <polkit/polkit.h>
--
--#define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
  
- enum {
-         TIMEZONE_CHANGED,
-@@ -42,7 +39,6 @@ static int signals[LAST_SIGNAL] = { 0 };
+ #define DESKTOP_ID "gnome-datetime-panel"
+ #define SET_TIMEZONE_PERMISSION "org.freedesktop.timedate1.set-timezone"
+@@ -45,7 +44,6 @@ static int signals[LAST_SIGNAL] = { 0 };
  typedef struct
  {
          GCancellable *cancellable;
@@ -36,15 +34,15 @@
          GeoclueClient *geoclue_client;
          GeoclueManager *geoclue_manager;
          Timedate1 *dtm;
-@@ -438,7 +434,6 @@ gsd_timezone_monitor_finalize (GObject *
+@@ -448,7 +446,6 @@ gsd_timezone_monitor_finalize (GObject *
+ 
          g_clear_object (&priv->dtm);
-         g_clear_object (&priv->geoclue_client);
          g_clear_object (&priv->geoclue_manager);
 -        g_clear_object (&priv->permission);
          g_clear_pointer (&priv->current_timezone, g_free);
          g_clear_pointer (&priv->tzdb, tz_db_free);
          g_clear_pointer (&priv->weather_tzdb, weather_tz_db_free);
-@@ -471,22 +466,6 @@ gsd_timezone_monitor_init (GsdTimezoneMo
+@@ -481,22 +478,6 @@ gsd_timezone_monitor_init (GsdTimezoneMo
  
          g_debug ("Starting timezone monitor");
  
