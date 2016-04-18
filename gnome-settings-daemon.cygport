@@ -6,7 +6,7 @@ RELEASE=1
 CATEGORY="GNOME"
 SUMMARY="GNOME settings daemon"
 DESCRIPTION="GNOME settings daemon"
-REQUIRES="font-cantarell-otf gnome-backgrounds gnome-desktop adwaita-icon-theme gnome-themes-standard pulseaudio-module-x11 tzcode"
+REQUIRES="font-cantarell-otf gnome-backgrounds gnome-desktop adwaita-icon-theme gnome-themes-standard pulseaudio-module-x11 tzdata"
 
 PATCH_URI="
 	3.0.1-math.patch
