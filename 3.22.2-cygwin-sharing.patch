@@ -1,0 +1,95 @@
+--- origsrc/gnome-settings-daemon-3.22.2/plugins/sharing/gsd-sharing-manager.c	2017-03-14 08:56:41.000000000 -0500
++++ src/gnome-settings-daemon-3.22.2/plugins/sharing/gsd-sharing-manager.c	2017-03-16 02:18:35.521438300 -0500
+@@ -121,6 +121,7 @@ handle_unit_cb (GObject      *source_obj
+ 
+ }
+ 
++#ifdef __linux__
+ static void
+ gsd_sharing_manager_handle_service (GsdSharingManager   *manager,
+                                     const char          *method,
+@@ -143,6 +144,7 @@ gsd_sharing_manager_handle_service (GsdS
+                                 (gpointer) method);
+         g_free (service_file);
+ }
++#endif
+ 
+ static void
+ gsd_sharing_manager_start_service (GsdSharingManager *manager,
+@@ -150,10 +152,21 @@ gsd_sharing_manager_start_service (GsdSh
+ {
+         g_debug ("About to start %s", service->name);
+ 
++#ifdef __linux__
+         /* We use StartUnit, not StartUnitReplace, since the latter would
+          * cancel any pending start we already have going from an
+          * earlier _start_service() call */
+         gsd_sharing_manager_handle_service (manager, "StartUnit", service);
++#else
++        char *desktop_file;
++        GDesktopAppInfo *appinfo;
++
++        desktop_file = g_strdup_printf ("%s.desktop", service->name);
++        appinfo = g_desktop_app_info_new (desktop_file);
++        g_app_info_launch (G_APP_INFO (appinfo), NULL, NULL, NULL);
++
++        g_free (desktop_file);
++#endif
+ }
+ 
+ static void
+@@ -162,10 +175,18 @@ gsd_sharing_manager_stop_service (GsdSha
+ {
+         g_debug ("About to stop %s", service->name);
+ 
++#ifdef __linux__
+         gsd_sharing_manager_handle_service (manager, "StopUnit", service);
++#else
++        char *command_line;
++        command_line = g_strdup_printf ("killall %s", service->name);
++        g_spawn_command_line_async (command_line, NULL);
++
++        g_free (command_line);
++#endif
+ }
+ 
+-#ifdef HAVE_NETWORK_MANAGER
++#if defined(HAVE_NETWORK_MANAGER) || defined(__CYGWIN__)
+ static gboolean
+ service_is_enabled_on_current_connection (GsdSharingManager *manager,
+                                           ServiceInfo       *service)
+@@ -250,7 +271,9 @@ properties_changed (GsdSharingManager *m
+                                        "PropertiesChanged",
+                                        props_changed, NULL);
+ }
++#endif
+ 
++#if defined(HAVE_NETWORK_MANAGER) || defined(__CYGWIN__)
+ static char **
+ get_connections_for_service (GsdSharingManager *manager,
+                              const char        *service_name)
+@@ -384,7 +407,10 @@ get_type_and_name_for_connection_uuid (G
+                                        const char        *id,
+                                        const char       **name)
+ {
+-        return NULL;
++        if (g_strcmp0 (*name, "fake-uuid-for-windows") != 0)
++                return NULL;
++        *name = "Windows";
++        return "unknown";
+ }
+ #endif /* HAVE_NETWORK_MANAGER */
+ 
+@@ -700,6 +726,12 @@ gsd_sharing_manager_start (GsdSharingMan
+         manager->priv->cancellable = g_cancellable_new ();
+ #ifdef HAVE_NETWORK_MANAGER
+         nm_client_new_async (manager->priv->cancellable, nm_client_ready, manager);
++#else
++        manager->priv->current_network = g_strdup ("fake-uuid-for-windows");
++        manager->priv->current_network_name = g_strdup ("Windows");
++        manager->priv->carrier_type = g_strdup ("unknown");
++        manager->priv->sharing_status = GSD_SHARING_STATUS_AVAILABLE;
++        gsd_sharing_manager_sync_services (manager);
+ #endif /* HAVE_NETWORK_MANAGER */
+ 
+         /* Start process of owning a D-Bus name */
