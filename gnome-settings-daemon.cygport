@@ -1,7 +1,7 @@
 inherit gnome2
 
 NAME="gnome-settings-daemon"
-VERSION=3.22.2
+VERSION=3.24.3
 RELEASE=1
 CATEGORY="GNOME"
 SUMMARY="GNOME settings daemon"
@@ -10,20 +10,19 @@ REQUIRES="cantarell-fonts gnome-backgrounds gnome-desktop adwaita-icon-theme adw
 
 PATCH_URI="
 	3.0.1-math.patch
-	3.14.2-no-undefined.patch
-	3.22.1-colord-polkit-upower.patch
+	3.24.3-colord-polkit-upower.patch
 	3.22.2-cygwin-sharing.patch
 "
 
 
 PKG_NAMES="${NAME} ${NAME}-devel"
-gnome_settings_daemon_CONTENTS="--exclude=libgsd.dll.a etc/ usr/bin/
-	usr/lib/${NAME}*/ usr/libexec/ usr/share/"
+gnome_settings_daemon_CONTENTS="etc/ usr/bin/ usr/libexec/ usr/share/"
 gnome_settings_daemon_devel_CONTENTS="usr/include/ usr/lib/${NAME}*/libgsd.dll.a usr/lib/pkgconfig/"
 
 DIFF_EXCLUDES="*.desktop.in"
 
 CYGCONF_ARGS="
+	--libexecdir=/usr/libexec/${NAME}
 	--disable-cups
 	--disable-gudev
 	--disable-network-manager
